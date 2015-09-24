@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PR003 Saludo</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="saludo">Saludo</string>
+    <string name="educado">Educado</string>
+    <string name="nombre">Nombre</string>
+    <string name="hola">"Hola "</string>
+    <string name="saludoEducado">Buenos dias señor</string>
+    <string name="eduOn">El modo Educado ha sido Activado</string>
+    <string name="eduOff">El modo Educado ha sido Desactivado</string>
+</resources>
