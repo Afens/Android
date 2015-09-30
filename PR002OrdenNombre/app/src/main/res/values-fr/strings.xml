@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FRPR002 OrdenNombre</string>
+
+    <string name="hello_world">FRHello world!</string>
+    <string name="action_settings">FRSettings</string>
+    <string name="Nombre">FRNombre</string>
+    <string name="Apellido">FRApellido</string>
+    <string name="Mensaje">FRNombre, Apellido</string>
+    <string name="Option1">FRApellido, Nombre</string>
+    <string name="Option2">FRNombre Apellido</string>
+    <string name="Sr">FRSeñor</string>
+</resources>

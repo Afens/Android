@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PR004 Estaciones</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="titulo">Las Cuatro estaciones</string>
+    <string name="estaciones">Estaciones</string>
+    <string name="primavera">La Primavera</string>
+    <string name="verano">El Verano</string>
+    <string name="otonno">El Otoño</string>
+    <string name="invierno">El Invierno</string>
+    <string name="megusta">Me Gusta</string>
+</resources>
