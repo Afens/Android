@@ -1,5 +1,6 @@
 package afens.pr005linearlayout;
 
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -30,10 +31,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
-        lblUser=(TextView)findViewById(R.id.lblUser);
-        lblPass=(TextView)findViewById(R.id.lblPass);
-        txtUser=(EditText)findViewById(R.id.txtUser);
-        txtPass=(EditText)findViewById(R.id.txtPass);
+        lblUser = (TextView) findViewById(R.id.lblUser);
+        lblPass = (TextView) findViewById(R.id.lblPass);
+        txtUser = (EditText) findViewById(R.id.txtUser);
+        txtPass = (EditText) findViewById(R.id.txtPass);
         btnAceptar = (Button) findViewById(R.id.btnAceptar);
         btnCancel = (Button) findViewById(R.id.btnCancel);
 
@@ -42,6 +43,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         lblUser.setVisibility(View.INVISIBLE);
         lblPass.setVisibility(View.INVISIBLE);
+
+        txtUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                foco(lblUser, hasFocus);
+            }
+        });
+        txtPass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                foco(lblPass,hasFocus);
+            }
+        });
 
         txtUser.addTextChangedListener(new TextWatcher() {
             @Override
@@ -78,12 +92,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-    //Activar y desactivar Aceptar
+
+    //Activar y desactivar Aceptar cuando Usuario y Clave contienen datos
     private void activar() {
         btnAceptar.setEnabled(!TextUtils.isEmpty(txtUser.getText().toString())
                 && !TextUtils.isEmpty(txtPass.getText().toString()));
     }
-    //Mostrar Usuario y Clave cuando escriben
+
+    //Mostrar Usuario y/o Clave cuando el EditText tiene datos
     private void visibilidad(EditText txt, TextView lbl) {
         if (TextUtils.isEmpty(txt.getText().toString())) {
             lbl.setVisibility(View.INVISIBLE);
@@ -92,17 +108,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //
+    //Al hacer click en un boton
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnAceptar:
                 Toast.makeText(this, getString(R.string.conect) + " "
-                                + txtUser.getText().toString() + "...", Toast.LENGTH_SHORT).show();
+                        + txtUser.getText().toString() + "...", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btnCancel:
                 txtUser.setText("");
                 txtPass.setText("");
                 break;
+        }
+    }
+    //Cambia el color del lbl dependiendo de quien tenga el foco
+    public void foco(TextView lbl, boolean tieneFoco) {
+        if (tieneFoco){
+            lbl.setTextColor(getResources().getColor(R.color.accent));
+            lbl.setTypeface(Typeface.DEFAULT_BOLD);
+        }else{
+            lbl.setTextColor(getResources().getColor(R.color.primary_text));
+            lbl.setTypeface(Typeface.DEFAULT);
         }
     }
 
