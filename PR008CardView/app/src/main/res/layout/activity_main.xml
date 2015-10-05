@@ -7,28 +7,240 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-        <!--aaaa>
-            <android.support.v7.widget.CardView
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             card_view:cardUseCompatPadding="true">
-        </-->
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/lblCuenta"
                     android:text="@string/cuenta"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_alignRight="@+id/txtCuenta"
+                    android:layout_alignEnd="@+id/txtCuenta"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblMonedaCuenta"
+                    android:text="@string/moneda"
+                    android:layout_below="@+id/lblCuenta"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignBaseline="@+id/txtCuenta"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/txtCuenta"
+                    android:selectAllOnFocus="true"
+                    android:layout_below="@+id/lblCuenta"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/lblMonedaCuenta"
+                    android:layout_toStartOf="@+id/lblMonedaCuenta"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblPropina"
+                    android:text="@string/propina"
+                    android:layout_below="@+id/txtCuenta"
+                    android:layout_alignRight="@+id/txtPropina"
+                    android:layout_alignEnd="@+id/txtPropina"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblMonedaPropina"
+                    android:text="@string/moneda"
+                    android:layout_below="@+id/lblPropina"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignBaseline="@+id/txtPropina"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="5"
+                    android:id="@+id/txtPropina"
+                    android:focusable="false"
+                    android:layout_below="@+id/lblPropina"
+                    android:layout_toLeftOf="@+id/lblMonedaPropina"
+                    android:layout_toStartOf="@+id/lblMonedaPropina"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblPorcentaje"
+                    android:text="@string/porcentaje"
+                    android:layout_below="@+id/txtCuenta"
+                    android:layout_alignRight="@+id/txtPorcentaje"
+                    android:layout_alignEnd="@+id/txtPorcentaje"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblSimboloPorcentaje"
+                    android:text="@string/simboloPorcentaje"
+                    android:layout_below="@+id/lblPorcentaje"
+                    android:layout_toLeftOf="@+id/txtPropina"
+                    android:layout_toStartOf="@+id/txtPropina"
+                    android:layout_alignBaseline="@+id/txtPorcentaje"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/txtPorcentaje"
+                    android:selectAllOnFocus="true"
+                    android:layout_below="@+id/lblPorcentaje"
+                    android:layout_toLeftOf="@+id/lblSimboloPorcentaje"
+                    android:layout_toStartOf="@+id/lblSimboloPorcentaje"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblTotal"
+                    android:text="@string/total"
+                    android:layout_below="@+id/txtPropina"
+                    android:layout_alignRight="@+id/txtTotal"
+                    android:layout_alignEnd="@+id/txtTotal"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblMonedaTotal"
+                    android:text="@string/moneda"
+                    android:layout_below="@+id/lblTotal"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignBaseline="@+id/txtTotal"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/txtTotal"
+                    android:focusable="false"
+                    android:layout_below="@+id/lblTotal"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/lblMonedaTotal"
+                    android:layout_toStartOf="@+id/lblMonedaTotal"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/redondear"
+                    android:id="@+id/btnTotal"
+                    android:layout_below="@+id/txtTotal"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/limpiar"
+                    android:id="@+id/btnLimpiarTotal"
+                    android:layout_below="@+id/txtTotal"
+                    android:layout_toLeftOf="@id/btnTotal"
+                    android:layout_toStartOf="@id/btnTotal"/>
+
             </RelativeLayout>
-        <!--aaaa></android.support.v7.widget.CardView></-->
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblTotalComensales"
+                    android:text="@string/totalComensales"
+                    android:layout_alignRight="@+id/txtTotalComensales"
+                    android:layout_alignEnd="@+id/txtTotalComensales"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblMonedaComensales"
+                    android:text="@string/moneda"
+                    android:layout_below="@+id/lblTotalComensales"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignBaseline="@+id/txtTotalComensales"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="5"
+                    android:id="@+id/txtTotalComensales"
+                    android:focusable="false"
+                    android:layout_below="@+id/lblTotalComensales"
+                    android:layout_toLeftOf="@+id/lblMonedaComensales"
+                    android:layout_toStartOf="@+id/lblMonedaComensales"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblComensales"
+                    android:text="@string/comensales"
+                    android:layout_alignRight="@+id/txtComensales"
+                    android:layout_alignEnd="@+id/txtComensales"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/txtComensales"
+                    android:selectAllOnFocus="true"
+                    android:layout_below="@+id/lblComensales"
+                    android:layout_toLeftOf="@+id/txtTotalComensales"
+                    android:layout_toStartOf="@+id/txtTotalComensales"/>
+
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/redondear"
+                    android:id="@+id/btnComensales"
+                    android:layout_below="@+id/txtTotalComensales"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/limpiar"
+                    android:id="@+id/btnLimpiarComensales"
+                    android:layout_below="@+id/txtTotalComensales"
+                    android:layout_toLeftOf="@id/btnComensales"
+                    android:layout_toStartOf="@id/btnComensales"/>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
     </LinearLayout>
 </ScrollView>
