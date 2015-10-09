@@ -1,0 +1,99 @@
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity"
+    android:id="@+id/raiz">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/p1"
+        android:background="@color/cian"
+        app:layout_heightPercent="@fraction/vertical"
+        app:layout_marginLeftPercent="@fraction/margin"
+        app:layout_marginStartPercent="@fraction/margin"
+        app:layout_marginTopPercent="@fraction/margin"
+        app:layout_widthPercent="@fraction/e1"
+        android:id="@+id/lbl1"
+        android:clickable="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/p2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@id/lbl1"
+        android:layout_toEndOf="@id/lbl1"
+        app:layout_heightPercent="@fraction/vertical"
+        app:layout_marginLeftPercent="@fraction/margin"
+        app:layout_marginStartPercent="@fraction/margin"
+        app:layout_marginTopPercent="@fraction/margin"
+        android:background="@color/red"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/p3"
+        android:background="@color/yellow"
+        android:layout_below="@id/lbl1"
+        app:layout_heightPercent="@fraction/vertical"
+        app:layout_marginLeftPercent="@fraction/margin"
+        app:layout_marginStartPercent="@fraction/margin"
+        app:layout_marginTopPercent="@fraction/margin"
+        app:layout_widthPercent="@fraction/e2"
+        android:id="@+id/lbl2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/p4"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/lbl1"
+        android:layout_toRightOf="@id/lbl2"
+        android:layout_toEndOf="@id/lbl2"
+        app:layout_heightPercent="@fraction/vertical"
+        app:layout_marginLeftPercent="@fraction/margin"
+        app:layout_marginStartPercent="@fraction/margin"
+        app:layout_marginTopPercent="@fraction/margin"
+        android:background="@color/green"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/p5"
+        android:background="@color/pink"
+        android:layout_below="@id/lbl2"
+        app:layout_heightPercent="@fraction/vertical"
+        app:layout_marginLeftPercent="@fraction/margin"
+        app:layout_marginStartPercent="@fraction/margin"
+        app:layout_marginTopPercent="@fraction/margin"
+        app:layout_widthPercent="@fraction/e3"
+        android:id="@+id/lbl3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:text="@string/p6"
+        android:layout_below="@id/lbl2"
+        android:layout_toRightOf="@id/lbl3"
+        android:layout_toEndOf="@id/lbl3"
+        app:layout_heightPercent="@fraction/vertical"
+        app:layout_marginLeftPercent="@fraction/margin"
+        app:layout_marginStartPercent="@fraction/margin"
+        app:layout_marginTopPercent="@fraction/margin"
+        android:background="@color/blue"
+        />
+</android.support.percent.PercentRelativeLayout>

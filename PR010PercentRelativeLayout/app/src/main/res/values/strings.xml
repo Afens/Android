@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">PR010PercentRelativeLayout</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="p1">70%</string>
+    <string name="p2">24%</string>
+    <string name="p3">47%</string>
+    <string name="p4">47%</string>
+    <string name="p5">10%</string>
+    <string name="p6">48%</string>
+    <string name="msgSnack">El color ha sido modificado</string>
+    <string name="deshacer">DESHACER</string>
+</resources>

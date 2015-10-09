@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="numAlum">
+        <item quantity="one">Hay un Suspenso</item>
+        <item quantity="other">Hay %1$d  Suspensos</item>
+    </plurals>
+</resources>

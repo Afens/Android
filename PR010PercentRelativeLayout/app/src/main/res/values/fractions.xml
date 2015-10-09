@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <fraction name="margin">2%</fraction>
+    <fraction name="vertical">30%</fraction>
+    <fraction name="e1">70%</fraction>
+    <fraction name="e2">47%</fraction>
+    <fraction name="e3">10%</fraction>
+</resources>

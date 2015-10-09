@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PR009TextImputLayout</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="name">Nombre</string>
+    <string name="phone">Telefono</string>
+    <string name="email">Email</string>
+</resources>
