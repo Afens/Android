@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PR014IntentResult</string>
+    <string name="dni">Dni</string>
+    <string name="name">Nombre</string>
+    <string name="no_disponible">No disponible</string>
+    <string name="edad">Edad</string>
+    <string name="obtener">Obtener</string>
+    <string name="send">Enviar</string>
+</resources>
