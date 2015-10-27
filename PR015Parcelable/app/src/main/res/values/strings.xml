@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">PR015Parcelable</string>
+
+    <string name="dni">Dni</string>
+    <string name="name">Nombre</string>
+    <string name="no_disponible">No disponible</string>
+    <string name="edad">Edad</string>
+    <string name="obtener">Obtener</string>
+    <string name="send">Enviar</string>
+    <string name="genero">Genero</string>
+
+    <string-array name="generos">
+        <item>Hombre</item>
+        <item>Mujer</item>
+    </string-array>
+
+</resources>
