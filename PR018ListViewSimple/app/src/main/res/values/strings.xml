@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PR018ListViewSimple</string>
+    <string name="nombre">(Nombre)</string>
+    <string name="no_hay_alumnos">No hay Alumnos</string>
+    <string name="listado_de_alumnos">Lista de alumnos</string>
+    <string name="alumno">Alumno</string>
+</resources>
