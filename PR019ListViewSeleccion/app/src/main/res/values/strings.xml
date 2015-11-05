@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">PR019ListViewSeleccion</string>
+    <string name="pregunta">¿De que color es el caballo blanco de Santiago?</string>
+    <string name="comprobar">Comprobar</string>
+    <string name="mnu1">Aprobar a %1$s</string>
+    <string name="win">Has Ganado </string>
+    <string name="mnu2">Suspender a %1$s</string>
+    <string-array name="respuestas">
+        <item>Verde</item>
+        <item>Rojo</item>
+        <item>Negro</item>
+        <item>Blanco</item>
+    </string-array>
+</resources>
