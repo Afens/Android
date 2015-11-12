@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/mnu1"
-        android:title="@string/mnu1" />
+        android:title="@string/mnu1"
+        app:showAsAction="ifRoom|withText"
+        android:icon="@drawable/ic_action_name"/>
     <item
         android:id="@+id/mnu2"
-        android:title="@string/mnu2" />
+        android:title="@string/mnu2"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_action_name"/>
 </menu>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PR020PopupMenu</string>
+    <string name="mensaje">Mensaje</string>
+    <string name="llamar">Llamar</string>
+</resources>

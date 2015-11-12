@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mnuLlamar"
+        android:title="@string/llamar" />
+    <item
+        android:id="@+id/mnuMensaje"
+        android:title="@string/mensaje" />
+</menu>

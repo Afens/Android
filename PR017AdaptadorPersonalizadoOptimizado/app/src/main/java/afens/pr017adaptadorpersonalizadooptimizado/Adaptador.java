@@ -20,6 +20,7 @@ public class Adaptador extends ArrayAdapter<Alumno> {
     public Adaptador(Context context, ArrayList<Alumno> datos) {
         super(context, R.layout.fila, datos);
         this.datos = datos;
+
     }
 
     private static class ViewHolder {
