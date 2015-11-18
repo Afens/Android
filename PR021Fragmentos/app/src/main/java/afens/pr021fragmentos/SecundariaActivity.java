@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SecundariaActivity extends AppCompatActivity {
+public class SecundariaActivity extends AppCompatActivity implements UnoFragment.Callback{
     private static final String EXTRA_MENSAJE = "E_mensaje";
     FragmentManager gestor;
 
@@ -34,5 +34,10 @@ public class SecundariaActivity extends AppCompatActivity {
         FragmentTransaction transaction= gestor.beginTransaction();
         transaction.add(R.id.flHuecoSecundaria, UnoFragment.newInstance(mensaje));
         transaction.commit();
+    }
+
+    @Override
+    public void pulsado(String mensaje) {
+
     }
 }
