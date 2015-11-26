@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PR025DialogFragment</string>
+    <string-array name="equipos">
+        <item>Real Madrid</item>
+        <item>Barcelona</item>
+        <item>Otros</item>
+    </string-array>
+</resources>
