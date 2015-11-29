@@ -22,6 +22,7 @@ public class Adaptador extends ArrayAdapter<Alumno> {
 
     }
 
+
     private static class ViewHolder {
         private final TextView lblNombre;
         private final TextView lblEdad;

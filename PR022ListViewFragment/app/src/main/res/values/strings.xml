@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PR022ListViewFragment</string>
+    <string name="empty">No hay Contactos</string>
+    <string name="call">Llamar</string>
+    <string name="years">"%d años"</string>
+    <string name="a">%d años</string>
+    <string name="dell">" eliminados"</string>
 </resources>

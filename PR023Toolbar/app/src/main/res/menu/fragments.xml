@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/mnuLlamar"
-        app:showAsAction="ifRoom|withText"
+    <item
+        android:id="@+id/mnuLlamar"
         android:icon="@drawable/ic_action_call"
-        android:title="@string/call"/>
+        android:title="@string/call"
+        app:showAsAction="ifRoom|withText" />
 
 </menu>

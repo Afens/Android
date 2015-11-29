@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/item_margin"
+    android:layout_marginBottom="@dimen/item_margin"
+>
+
+    <TextView
+        android:id="@+id/lblNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/item_text_margin"
+        android:layout_marginStart="@dimen/item_text_margin"
+        android:layout_marginRight="@dimen/item_margin"
+        android:layout_marginEnd="@dimen/item_margin"
+        android:text="Manuel Espinosa de los Monteros Delgado"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/lblEdad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblNombre"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/item_text_margin"
+        android:layout_marginStart="@dimen/item_text_margin"
+        android:text="X Años"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/lblLocalidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/lblNombre"
+        android:layout_gravity="center_horizontal"
+        android:text="Algeciras"
+        android:layout_marginRight="@dimen/item_margin"
+        android:layout_marginEnd="@dimen/item_margin"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_marginLeft="@dimen/item_margin"
+        android:layout_marginStart="@dimen/item_margin"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@id/lblNombre" />
+</RelativeLayout>
