@@ -1,6 +1,7 @@
 package afens.pr022listviewfragment;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -34,12 +35,12 @@ public class UnoFragment extends Fragment {
     @Bind(R.id.lblNoHayContactos)
     TextView lblNoHayContactos;
     private Callback listener;
-    private ArrayList<Contacto> contactos;
     private Adaptador adaptador;
 
     //------------------ Interface --------------------
     public interface Callback {
-        public void verDetalles(Contacto contacto);
+        public void verDetalles(int contacto);
+
         public void solicitarContacto();
     }
 
@@ -58,8 +59,9 @@ public class UnoFragment extends Fragment {
         super.onDetach();
         listener = null;
     }
-    //-------------------------------------------------
 
+
+    //---------------------- Codigo Principal -----------------------
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,65 +80,70 @@ public class UnoFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         lstContactos.setEmptyView(lblNoHayContactos);
-        lstContactos.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        contactos = ListaContactos.crearContactos();
-        adaptador = new Adaptador(getContext(), contactos);
+        adaptador = new Adaptador(getContext(), ListaContactos.crearContactos());
         lstContactos.setAdapter(adaptador);
-        lstContactos.setMultiChoiceModeListener(
-                new AbsListView.MultiChoiceModeListener() {
-                    @Override
-                    public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-                        // Se actualiza el título de la action bar contextual.
-                        mode.setTitle(lstContactos.getCheckedItemCount()
-                                + " de "
-                                + lstContactos.getCount());
-                    }
 
-                    @Override
-                    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                        mode.getMenuInflater().inflate(R.menu.multi_choise_menu, menu);
-                        return true;
-                    }
-
-                    @Override
-                    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                        if (item.getItemId() == R.id.mnuEliminar) {
-
-                            // Se obtienen los elementos seleccionados (y se
-                            // quita la selección).
-                            ArrayList<Contacto> elems = getElementosSeleccionados(lstContactos);
-                            // Se eliminan del adaptador.
-                            for (Contacto elemento : elems) {
-                                adaptador.remove(elemento);
-                            }
-
-                            Toast.makeText(getContext(),
-                                    elems.size() + getContext().getString(R.string.dell),
-                                    Toast.LENGTH_LONG).show();
+        if (getActivity().getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            lstContactos.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        else {
+            lstContactos.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+            lstContactos.setMultiChoiceModeListener(
+                    new AbsListView.MultiChoiceModeListener() {
+                        @Override
+                        public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+                            // Se actualiza el título de la action bar contextual.
+                            mode.setTitle(lstContactos.getCheckedItemCount()
+                                    + " de "
+                                    + lstContactos.getCount());
                         }
-                        return true;
-                    }
 
-                    @Override
-                    public void onDestroyActionMode(ActionMode mode) {
+                        @Override
+                        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                            mode.getMenuInflater().inflate(R.menu.multi_choise_menu, menu);
+                            return true;
+                        }
 
-                    }
-                });
+                        @Override
+                        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                            if (item.getItemId() == R.id.mnuEliminar) {
+
+                                // Se obtienen los elementos seleccionados (y se
+                                // quita la selección).
+                                ArrayList<Contacto> elems = getElementosSeleccionados(lstContactos);
+                                // Se eliminan del adaptador.
+                                for (Contacto elemento : elems) {
+                                    adaptador.remove(elemento);
+                                }
+                                adaptador.notifyDataSetChanged();
+                                Toast.makeText(getContext(),
+                                        elems.size() + getContext().getString(R.string.dell),
+                                        Toast.LENGTH_LONG).show();
+                            }
+                            return true;
+                        }
+
+                        @Override
+                        public void onDestroyActionMode(ActionMode mode) {
+
+                        }
+                    });
+        }
+
         lstContactos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Contacto contacto = (Contacto) parent.getItemAtPosition(position);
-                listener.verDetalles(contacto);
+                if (getActivity().getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+                    lstContactos.setItemChecked(position, true);
+                listener.verDetalles(position);
             }
         });
         super.onActivityCreated(savedInstanceState);
     }
-
 
 
     private ArrayList<Contacto> getElementosSeleccionados(ListView lstContactos) {
@@ -156,25 +163,54 @@ public class UnoFragment extends Fragment {
         // Se retorna el resultado.
         return datos;
     }
-    public void addContacto(Contacto contacto){
+
+    //----------------------- Comunicacion Actividad con el Fragmento ----------------------
+    public void addContacto(Contacto contacto) {
         adaptador.add(contacto);
     }
 
+    public void actualizar() {
+        adaptador.notifyDataSetChanged();
+    }
+
+
+
+    //------------------------------- Menu -------------------------------------------
     @Override
     // Añade al menu el boton de añadir
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.fragment1_menu, menu);
+        if (getActivity().getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            inflater.inflate(R.menu.multi_choise_menu, menu);
+        }
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     // Comprueba si la opcion selecionada del menu es de este fragmento
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.mnuAdd) {
-            listener.solicitarContacto();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.mnuAdd:
+                listener.solicitarContacto();
+                return true;
+            case R.id.mnuEliminar:
+                if (getActivity().getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    ArrayList<Contacto> elems = getElementosSeleccionados(lstContactos);
+                    // Se eliminan del adaptador.
+                    for (Contacto elemento : elems) {
+                        adaptador.remove(elemento);
+                    }
+                    Toast.makeText(getContext(),
+                            getContext().getString(R.string.dell),
+                            Toast.LENGTH_LONG).show();
+                    return true;
+                }
+
+            default:
+                return super.onOptionsItemSelected(item);
+
         }
-        return super.onOptionsItemSelected(item);
+
     }
 
 }

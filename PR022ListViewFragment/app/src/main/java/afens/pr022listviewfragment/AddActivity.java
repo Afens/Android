@@ -1,7 +1,6 @@
 package afens.pr022listviewfragment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -16,12 +15,14 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class AddActivity extends AppCompatActivity {
 
-
+    private Contacto contacto;
     public static final String EXTRA_CONTACTO = "Nuevo_contacto";
     @Bind(R.id.txtNombre)
     EditText txtNombre;
@@ -51,12 +52,29 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         ButterKnife.bind(this);
+
+        Intent intent=getIntent();
+        int i=intent.getIntExtra(EXTRA_CONTACTO,-1);
+        if(i<0)
+            contacto=new Contacto();
+        else
+            contacto=ListaContactos.get(i);
+
         setupValidacionTelefono();
         setupValidacionEmail();
 
-
+        contactoToView();
     }
 
+    private void contactoToView() {
+        txtNombre.setText(contacto.getNombre());
+        txtEdad.setText(String.format("%d", contacto.getEdad()));
+        txtTelf.setText(contacto.getTelf());
+        txtCorreo.setText(contacto.getCorreo());
+        txtLocalidad.setText(contacto.getLocalidad());
+        Picasso.with(this).load(contacto.getFoto()).into(ivFoto);
+    }
+    // ------------------------- Menu ---------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflador = getMenuInflater();
@@ -66,13 +84,13 @@ public class AddActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.mnuConfirm){
+        if (item.getItemId() == R.id.mnuConfirm) {
             finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
+    //--------------------------- Validaciones ------------------------
     // Configura la validación del teléfono.
     private void setupValidacionTelefono() {
         txtTelf.addTextChangedListener(new TextWatcher() {
@@ -102,28 +120,28 @@ public class AddActivity extends AppCompatActivity {
     }
 
     // Configura la validación del email.
-        private void setupValidacionEmail () {
-            txtCorreo.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    private void setupValidacionEmail() {
+        txtCorreo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                }
+            }
 
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                }
+            }
 
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    if (!TextUtils.isEmpty(txtCorreo.getText().toString())) {
-                        if (!Patterns.EMAIL_ADDRESS.matcher(txtCorreo.getText().toString()).matches()) {
-                            tilCorreo.setError("Debe tener el formato usuario@dominio.tipo");
-                        } else {
-                            tilCorreo.setErrorEnabled(false);
-                        }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!TextUtils.isEmpty(txtCorreo.getText().toString())) {
+                    if (!Patterns.EMAIL_ADDRESS.matcher(txtCorreo.getText().toString()).matches()) {
+                        tilCorreo.setError("Debe tener el formato usuario@dominio.tipo");
                     } else {
                         tilCorreo.setErrorEnabled(false);
+                    }
+                } else {
+                    tilCorreo.setErrorEnabled(false);
                 }
             }
         });
@@ -137,26 +155,29 @@ public class AddActivity extends AppCompatActivity {
             return false;
         return true;
     }
-    public static void startForResult(Activity activity, int rc) {
-        Intent intent=new Intent(activity,AddActivity.class);
-        activity.startActivityForResult(intent,rc);
-    }
-    public void finish() {
-        Intent resultado = new Intent();
-        Contacto contacto=crearContacto();
-        resultado.putExtra(EXTRA_CONTACTO, contacto);
-        setResult(RESULT_OK, resultado);
-        super.finish();
-    }
 
-    private Contacto crearContacto() {
-        Contacto contacto=new Contacto();
+    private void guardarContacto() {
         contacto.setNombre(txtNombre.getText().toString());
         contacto.setEdad(Integer.parseInt(txtEdad.getText().toString()));
         contacto.setTelf(txtTelf.getText().toString());
         contacto.setCorreo(txtCorreo.getText().toString());
         contacto.setLocalidad(txtLocalidad.getText().toString());
-        contacto.setFoto("http://lorempixel.com/image_output/people-q-c-500-500-9.jpg");
-        return contacto;
+        contacto.setFoto(contacto.getFoto());
+
+    }
+// ----------------------- Comunicacion con otras actividades -----------------------
+    public static void startForResult(Activity activity, int rc, int contacto) {
+        Intent intent = new Intent(activity, AddActivity.class);
+        intent.putExtra(EXTRA_CONTACTO, contacto);
+        activity.startActivityForResult(intent, rc);
+
+    }
+
+    public void finish() {
+        Intent resultado = new Intent();
+        guardarContacto();
+        resultado.putExtra(EXTRA_CONTACTO, contacto);
+        setResult(RESULT_OK, resultado);
+        super.finish();
     }
 }

@@ -26,4 +26,11 @@ public class ListaContactos {
         }
         return contactos;
     }
+
+    public static int indexOf(Contacto c) {
+        return contactos.indexOf(c);
+    }
+    public static Contacto get(int i) {
+        return contactos.get(i);
+    }
 }
