@@ -5,4 +5,13 @@
     <string name="years">"%d años"</string>
     <string name="a">%d años</string>
     <string name="dell">" eliminados"</string>
+    <string name="add">Agregar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="borrar">Eliminar</string>
+    <string name="name">Nombre</string>
+    <string name="age">Edad</string>
+    <string name="phone">Telefono</string>
+    <string name="mail">Email</string>
+    <string name="locality">Localidad</string>
+    <string name="firma">Manuel Espinosa de los Monteros Delgado</string>
 </resources>

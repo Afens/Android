@@ -1,5 +1,8 @@
 package afens.pr022listviewfragment;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -18,6 +21,8 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 /**
  * Created by Afens on 29/11/2015.
@@ -39,7 +44,7 @@ public class DosFragment extends Fragment {
     TextView lblLocalidad;
 
     // Para crear el Fragmento con argumentos
-    public static Fragment newInstance(Parcelable extra) {
+    public static Fragment newInstance(Contacto extra) {
         Fragment fragment = new DosFragment();
         Bundle argumentos = new Bundle();
         argumentos.putParcelable(ARG_CONTACTO, extra);
@@ -72,7 +77,7 @@ public class DosFragment extends Fragment {
         lblTelf.setText(contacto.getTelf());
         lblCorreo.setText(contacto.getCorreo());
         lblLocalidad.setText(contacto.getLocalidad());
-        Picasso.with(getContext()).load("http://lorempixel.com/500/500/people/1").resize(150, 150).into(ivFoto);
+        Picasso.with(getContext()).load(contacto.getFoto()).into(ivFoto);
     }
 
     @Override
@@ -93,9 +98,13 @@ public class DosFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.mnuLlamar) {
             //Falta hacer que llame
-
-            Toast.makeText(getActivity(), "Llammando a "+lblTelf.getText(),
-                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + lblTelf.getText()));
+            try {
+                startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(getActivity(), "No se pudo realizar la accion", LENGTH_LONG).show();
+            }
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

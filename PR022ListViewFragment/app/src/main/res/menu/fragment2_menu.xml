@@ -3,6 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/mnuLlamar"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_tlf"
+        android:icon="@drawable/ic_llamar"
         android:title="@string/call" />
 </menu>

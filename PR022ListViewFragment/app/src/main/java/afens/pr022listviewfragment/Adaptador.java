@@ -1,6 +1,7 @@
 package afens.pr022listviewfragment;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Afens on 29/11/2015.
@@ -29,13 +32,13 @@ public class Adaptador extends ArrayAdapter<Contacto> {
         private final TextView lblNombre;
         private final TextView lblEdad;
         private final TextView lblLocalidad;
-        private final ImageView imgAvatar;
+        private final CircleImageView imgAvatar;
 
         public ViewHolder(View itemView) {
             lblNombre = (TextView) itemView.findViewById(R.id.lblNombre);
             lblEdad = (TextView) itemView.findViewById(R.id.lblEdad);
             lblLocalidad = (TextView) itemView.findViewById(R.id.lblLocalidad);
-            imgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
+            imgAvatar = (CircleImageView) itemView.findViewById(R.id.imgAvatar);
         }
     }
 
@@ -67,13 +70,14 @@ public class Adaptador extends ArrayAdapter<Contacto> {
         onBindViewHolder(holder, position);
         // Se retorna la vista-fila.
         return convertView;
-        }
+    }
 
     private void onBindViewHolder(ViewHolder holder, int position) {
-        Contacto contacto=datos.get(position);
+        Contacto contacto = datos.get(position);
         holder.lblNombre.setText(contacto.getNombre());
         holder.lblEdad.setText(String.format(getContext().getString(R.string.a), contacto.getEdad()));
-        holder.lblLocalidad.setText(contacto.getLocalidad());
+        if (getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            holder.lblLocalidad.setText(contacto.getLocalidad());
         Picasso.with(getContext().getApplicationContext()).load(contacto.getFoto()).resize(50, 50).into(holder.imgAvatar);
 
     }

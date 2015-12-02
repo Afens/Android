@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
 
     <TextView
@@ -11,9 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="@dimen/main_text_margin_L"
-        android:layout_marginStart="@dimen/main_text_margin_L"
-        android:layout_marginTop="@dimen/first_text_margin_T"
+        android:layout_marginLeft="@dimen/text_marginLeft"
+        android:layout_marginStart="@dimen/text_marginLeft"
+        android:layout_marginTop="@dimen/text_marginTop"
         android:layout_toLeftOf="@+id/ivFoto"
         android:text="Manuel Espinosa de los Monteros Delgado"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -25,17 +24,17 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@id/lblNombre"
-        android:layout_marginLeft="@dimen/main_text_margin_L"
-        android:layout_marginStart="@dimen/main_text_margin_L"
-        android:layout_marginTop="@dimen/second_text_margin_T"
+        android:layout_marginLeft="@dimen/text_marginLeft"
+        android:layout_marginStart="@dimen/text_marginLeft"
+        android:layout_marginTop="@dimen/text_marginTop"
         android:layout_toLeftOf="@+id/ivFoto"
         android:text="22 años"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ImageView
         android:id="@+id/ivFoto"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/tamAvatar"
+        android:layout_height="@dimen/tamAvatar"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/img_margin"

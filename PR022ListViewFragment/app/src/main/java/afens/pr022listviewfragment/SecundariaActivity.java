@@ -2,6 +2,7 @@ package afens.pr022listviewfragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,12 +20,14 @@ public class SecundariaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_secundaria);
         gestor = getSupportFragmentManager();
         Intent intent= getIntent();
-        asignarFragmento(intent.getParcelableExtra(EXTRA_CONTACTO));
+        if (getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            onBackPressed();
+        asignarFragmento(intent.<Contacto>getParcelableExtra(EXTRA_CONTACTO));
     }
 
-    private void asignarFragmento(Parcelable extra) {
+    private void asignarFragmento(Contacto extra) {
         FragmentTransaction transaction= gestor.beginTransaction();
-        transaction.add(R.id.flHueco2, DosFragment.newInstance(extra));
+        transaction.replace(R.id.flHueco2, DosFragment.newInstance(extra));
         transaction.commit();
     }
 

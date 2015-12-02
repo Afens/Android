@@ -8,6 +8,7 @@ import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class UnoFragment extends Fragment {
     //------------------ Interface --------------------
     public interface Callback {
         public void verDetalles(Contacto contacto);
+        public void solicitarContacto();
     }
 
     @Override
@@ -74,9 +76,10 @@ public class UnoFragment extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         lstContactos.setEmptyView(lblNoHayContactos);
         lstContactos.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        contactos = crearContactos();
+        contactos = ListaContactos.crearContactos();
         adaptador = new Adaptador(getContext(), contactos);
         lstContactos.setAdapter(adaptador);
         lstContactos.setMultiChoiceModeListener(
@@ -134,21 +137,7 @@ public class UnoFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    private ArrayList<Contacto> crearContactos() {
-        ArrayList<Contacto> contactos = new ArrayList<>();
-        Contacto c;
-        for (int i = 0; i < 5; i++) {
-            c = new Contacto();
-            c.setNombre("C" + i);
-            c.setCorreo(i + "@" + i);
-            c.setEdad(i);
-            c.setLocalidad("Local" + i);
-            c.setTelf("+34" + i);
-            c.setFoto("http://lorempixel.com/500/500/people/" + (i + 1) + "/");
-            contactos.add(c);
-        }
-        return contactos;
-    }
+
 
     private ArrayList<Contacto> getElementosSeleccionados(ListView lstContactos) {
         ArrayList<Contacto> datos = new ArrayList<>();
@@ -166,6 +155,26 @@ public class UnoFragment extends Fragment {
         }
         // Se retorna el resultado.
         return datos;
+    }
+    public void addContacto(Contacto contacto){
+        adaptador.add(contacto);
+    }
+
+    @Override
+    // Añade al menu el boton de añadir
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.fragment1_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    // Comprueba si la opcion selecionada del menu es de este fragmento
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.mnuAdd) {
+            listener.solicitarContacto();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
