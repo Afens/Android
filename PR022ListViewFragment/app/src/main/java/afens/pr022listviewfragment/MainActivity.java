@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -22,8 +23,10 @@ public class MainActivity extends AppCompatActivity implements UnoFragment.Callb
     private static final int RC_EDIT = 3;
     private static final String PRINCIPAL = "Principal";
     private static final String SEGUNDARIO = "Segundario";
+    private static final String SELECIONADO = "Selecionado";
 
     private FragmentManager gestor;
+    private int itemSeleccionado =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements UnoFragment.Callb
         iniciarFragmento();
     }
 
+
+    // ------------------ Asignacion de Fragmentos --------------------
     private void eliminarFragmento() {
         Fragment s = gestor.findFragmentByTag(SEGUNDARIO);
         if (s != null) {
@@ -55,8 +60,9 @@ public class MainActivity extends AppCompatActivity implements UnoFragment.Callb
 
     // ------------------------ Interfaces de Fragmentos -------------------------------
     @Override
-    //Ver los detalles del contacto selecionado
+//Ver los detalles del contacto selecionado
     public void verDetalles(int contacto) {
+        itemSeleccionado = contacto;
         if (findViewById(R.id.flHueco2) == null) {
             SecundariaActivity.start(MainActivity.this, contacto, RC_DETAIL);
         } else {
@@ -67,61 +73,75 @@ public class MainActivity extends AppCompatActivity implements UnoFragment.Callb
     }
 
     @Override
-    // Solicitar a otra actividad un contacto nuevo
+// Solicitar a otra actividad un contacto nuevo
     public void solicitarContacto() {
         AddActivity.startForResult(this, RC_ADD, -1);
     }
+
     @Override
     public void editarContacto(int contacto) {
         AddActivity.startForResult(this, RC_EDIT, contacto);
     }
-    // -------------------------------------------------------------------------------
 
-
+    // ------------------- Comunicacion con otra actividad ---------------------------------
     @Override
-    // Cuando nos responde un Intent
+// Cuando nos responde un Intent
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == RC_ADD && data.hasExtra(AddActivity.EXTRA_CONTACTO)) {
-                Contacto c = data.getParcelableExtra(AddActivity.EXTRA_CONTACTO);
-                Toast.makeText(this, "Contacto Añadido", Toast.LENGTH_SHORT).show();
                 UnoFragment frg = (UnoFragment) getSupportFragmentManager().findFragmentByTag(PRINCIPAL);
-                frg.addContacto(c);
+                if (getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    int c = data.getIntExtra(AddActivity.EXTRA_CONTACTO, -1);
+                    if (c > -1) {
+                        frg.setItemChecked(c);
+                    }
+                }
+                frg.actualizar();
             }
             if (requestCode == RC_EDIT && data.hasExtra(AddActivity.EXTRA_CONTACTO)) {
                 if (getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     Fragment frg = getSupportFragmentManager().findFragmentByTag(PRINCIPAL);
-                    ((UnoFragment)frg).actualizar();
+                    ((UnoFragment) frg).actualizar();
                     frg = getSupportFragmentManager().findFragmentByTag(SEGUNDARIO);
-                    ((DosFragment)frg).mostrarDetalles();
+                    ((DosFragment) frg).mostrarDetalles();
+                } else {
+                    int c = data.getIntExtra(AddActivity.EXTRA_CONTACTO, -1);
+                    if (c > -1) {
+                        SecundariaActivity.start(MainActivity.this, c, RC_DETAIL);
+                    }
                 }
             }
             if (requestCode == RC_DETAIL && data.hasExtra(SecundariaActivity.EXTRA_MODIFICADO)) {
                 if (getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    int i = data.getIntExtra(SecundariaActivity.EXTRA_MODIFICADO, -1);
-                    UnoFragment frg = (UnoFragment) getSupportFragmentManager().findFragmentByTag(PRINCIPAL);
-                    frg.lstContactos.setItemChecked(i, true);
+                    int c = data.getIntExtra(SecundariaActivity.EXTRA_MODIFICADO, -1);
+                    if (c > -1) {
+                        UnoFragment frg = (UnoFragment) getSupportFragmentManager().findFragmentByTag(PRINCIPAL);
+                        frg.setItemChecked(c);
+                        verDetalles(c);
+                    }
                 }
             }
         }
     }
 
 
-/*
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putParcelable(SELECIONADO, itemSeleccionado);
+        outState.putInt(SELECIONADO, itemSeleccionado);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        itemSeleccionado = savedInstanceState.getInt(SELECIONADO);
         if (getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            itemSeleccionado = savedInstanceState.getParcelable(SELECIONADO);
-            if (itemSeleccionado != null)
+            if (itemSeleccionado <ListaContactos.size()) {
+                UnoFragment frg = (UnoFragment) getSupportFragmentManager().findFragmentByTag(PRINCIPAL);
+                frg.setItemChecked(itemSeleccionado);
                 verDetalles(itemSeleccionado);
+            }
         }
     }
-    */
+
 }

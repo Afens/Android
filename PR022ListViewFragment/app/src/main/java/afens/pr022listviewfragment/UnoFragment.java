@@ -138,8 +138,14 @@ public class UnoFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (getActivity().getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                    lstContactos.setItemChecked(position, true);
+                    setItemChecked(position);
                 listener.verDetalles(position);
+            }
+        });
+        lblNoHayContactos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.solicitarContacto();
             }
         });
         super.onActivityCreated(savedInstanceState);
@@ -165,13 +171,11 @@ public class UnoFragment extends Fragment {
     }
 
     //----------------------- Comunicacion Actividad con el Fragmento ----------------------
-    public void addContacto(Contacto contacto) {
-        adaptador.add(contacto);
-    }
 
     public void actualizar() {
         adaptador.notifyDataSetChanged();
     }
+    public void setItemChecked(int pos){lstContactos.setItemChecked(pos, true);}
 
 
 

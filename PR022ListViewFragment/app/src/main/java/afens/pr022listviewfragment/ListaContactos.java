@@ -33,4 +33,6 @@ public class ListaContactos {
     public static Contacto get(int i) {
         return contactos.get(i);
     }
+    public static void add(Contacto c){contactos.add(c);}
+    public static int size(){return contactos.size();}
 }

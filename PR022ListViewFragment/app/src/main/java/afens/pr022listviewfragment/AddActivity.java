@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -53,12 +54,12 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
         ButterKnife.bind(this);
 
-        Intent intent=getIntent();
-        int i=intent.getIntExtra(EXTRA_CONTACTO,-1);
-        if(i<0)
-            contacto=new Contacto();
+        Intent intent = getIntent();
+        int i = intent.getIntExtra(EXTRA_CONTACTO, -1);
+        if (i < 0)
+            contacto = new Contacto();
         else
-            contacto=ListaContactos.get(i);
+            contacto = ListaContactos.get(i);
 
         setupValidacionTelefono();
         setupValidacionEmail();
@@ -74,6 +75,19 @@ public class AddActivity extends AppCompatActivity {
         txtLocalidad.setText(contacto.getLocalidad());
         Picasso.with(this).load(contacto.getFoto()).into(ivFoto);
     }
+
+    private void guardarContacto() {
+        contacto.setNombre(txtNombre.getText().toString());
+        contacto.setEdad(Integer.parseInt(txtEdad.getText().toString()));
+        contacto.setTelf(txtTelf.getText().toString());
+        contacto.setCorreo(txtCorreo.getText().toString());
+        contacto.setLocalidad(txtLocalidad.getText().toString());
+        contacto.setFoto(contacto.getFoto());
+        if (ListaContactos.indexOf(contacto) == -1) {
+            ListaContactos.add(contacto);
+        }
+    }
+
     // ------------------------- Menu ---------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,12 +98,36 @@ public class AddActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.mnuConfirm) {
-            finish();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.mnuConfirm:
+                guardarContacto();
+                Toast.makeText(this, "Contacto Añadido", Toast.LENGTH_SHORT).show();
+                finish();
+                return true;
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
+
+
+    // ----------------------- Comunicacion con otras actividades -----------------------
+    public static void startForResult(Activity activity, int rc, int contacto) {
+        Intent intent = new Intent(activity, AddActivity.class);
+        intent.putExtra(EXTRA_CONTACTO, contacto);
+        activity.startActivityForResult(intent, rc);
+
+    }
+
+    public void finish() {
+        Intent resultado = new Intent();
+        resultado.putExtra(EXTRA_CONTACTO, ListaContactos.indexOf(contacto));
+        setResult(RESULT_OK, resultado);
+        super.finish();
+    }
+
     //--------------------------- Validaciones ------------------------
     // Configura la validación del teléfono.
     private void setupValidacionTelefono() {
@@ -154,30 +192,5 @@ public class AddActivity extends AppCompatActivity {
                 !cadena.startsWith("8") && !cadena.startsWith("9"))
             return false;
         return true;
-    }
-
-    private void guardarContacto() {
-        contacto.setNombre(txtNombre.getText().toString());
-        contacto.setEdad(Integer.parseInt(txtEdad.getText().toString()));
-        contacto.setTelf(txtTelf.getText().toString());
-        contacto.setCorreo(txtCorreo.getText().toString());
-        contacto.setLocalidad(txtLocalidad.getText().toString());
-        contacto.setFoto(contacto.getFoto());
-
-    }
-// ----------------------- Comunicacion con otras actividades -----------------------
-    public static void startForResult(Activity activity, int rc, int contacto) {
-        Intent intent = new Intent(activity, AddActivity.class);
-        intent.putExtra(EXTRA_CONTACTO, contacto);
-        activity.startActivityForResult(intent, rc);
-
-    }
-
-    public void finish() {
-        Intent resultado = new Intent();
-        guardarContacto();
-        resultado.putExtra(EXTRA_CONTACTO, contacto);
-        setResult(RESULT_OK, resultado);
-        super.finish();
     }
 }

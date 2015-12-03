@@ -43,6 +43,7 @@
 
         <EditText
             android:id="@+id/txtEdad"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/age" />
@@ -59,6 +60,7 @@
         android:layout_marginRight="@dimen/img_margin"
         android:layout_marginStart="@dimen/img_margin"
         android:layout_marginTop="@dimen/img_margin"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_tlf" />
 
 
@@ -75,6 +77,7 @@
 
         <EditText
             android:id="@+id/txtTelf"
+            android:inputType="phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/phone" />
@@ -103,7 +106,9 @@
             android:id="@+id/txtCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/mail" />
+            android:hint="@string/mail"
+            android:inputType="textEmailAddress"/>
+
     </android.support.design.widget.TextInputLayout>
 
     <ImageView
@@ -129,7 +134,8 @@
             android:id="@+id/txtLocalidad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/locality" />
+            android:hint="@string/locality"
+            android:inputType="text"/>
     </android.support.design.widget.TextInputLayout>
 
     <ImageView
