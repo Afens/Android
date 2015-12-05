@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -115,7 +117,8 @@ public class DosFragment extends Fragment {
         lblTelf.setText(contacto.getTelf());
         lblCorreo.setText(contacto.getCorreo());
         lblLocalidad.setText(contacto.getLocalidad());
-        Picasso.with(getContext()).load(contacto.getFoto()).into(ivFoto);
+        if (contacto.getFoto()!=null)
+            Picasso.with(getContext()).load(new File(contacto.getFoto())).into(ivFoto);
     }
 
     @Override

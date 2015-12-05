@@ -2,27 +2,43 @@ package afens.pr022listviewfragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class AddActivity extends AppCompatActivity {
 
+    private static final int RC_SELECCIONAR_FOTO = 7;
     private Contacto contacto;
     public static final String EXTRA_CONTACTO = "Nuevo_contacto";
     @Bind(R.id.txtNombre)
@@ -47,6 +63,8 @@ public class AddActivity extends AppCompatActivity {
     EditText txtLocalidad;
     @Bind(R.id.tilLocalidad)
     TextInputLayout tilLocalidad;
+    private String sNombreArchivo;
+    private String foto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +78,13 @@ public class AddActivity extends AppCompatActivity {
             contacto = new Contacto();
         else
             contacto = ListaContactos.get(i);
-
+        ivFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seleccionarFoto(contacto.hashCode()+ new SimpleDateFormat("yyyyMMdd_HHmmss",
+                        Locale.getDefault()).format(new Date()) + ".jpg");
+            }
+        });
         setupValidacionTelefono();
         setupValidacionEmail();
 
@@ -73,7 +97,10 @@ public class AddActivity extends AppCompatActivity {
         txtTelf.setText(contacto.getTelf());
         txtCorreo.setText(contacto.getCorreo());
         txtLocalidad.setText(contacto.getLocalidad());
-        Picasso.with(this).load(contacto.getFoto()).into(ivFoto);
+        if (contacto.getFoto()!=null) {
+            foto = contacto.getFoto();
+            Picasso.with(this).load(new File(contacto.getFoto())).into(ivFoto);
+        }
     }
 
     private void guardarContacto() {
@@ -82,7 +109,7 @@ public class AddActivity extends AppCompatActivity {
         contacto.setTelf(txtTelf.getText().toString());
         contacto.setCorreo(txtCorreo.getText().toString());
         contacto.setLocalidad(txtLocalidad.getText().toString());
-        contacto.setFoto(contacto.getFoto());
+        contacto.setFoto(foto);
         if (ListaContactos.indexOf(contacto) == -1) {
             ListaContactos.add(contacto);
         }
@@ -192,5 +219,171 @@ public class AddActivity extends AppCompatActivity {
                 !cadena.startsWith("8") && !cadena.startsWith("9"))
             return false;
         return true;
+    }
+
+
+    // --------------------------- Para coger la foto ---------------------------------
+    // Copiado de la Wikipedro
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case RC_SELECCIONAR_FOTO:
+                    // Se obtiene el path real a partir de la uri retornada por la galería.
+                    Uri uriGaleria = data.getData();
+                    String sPathFotoOriginal = getRealPath(uriGaleria);
+                    // Se escala la foto, se almacena en archivo propio y se muestra en ImageView.
+                    cargarImagenEscalada(sPathFotoOriginal);
+                    break;
+            }
+        }
+    }
+
+
+    // Envía un intent implícito para seleccionar una foto de la galería.
+    // Recibe el nombre que debe tomar el archivo con la foto escalada y guardada en privado.
+    private void seleccionarFoto(String nombreArchivoPrivado) {
+        // Se guarda el nombre para uso posterior.
+        sNombreArchivo = nombreArchivoPrivado;
+        // Se seleccionará un imagen de la galería.
+        // (el segundo parámetro es el Data, que corresponde a la Uri de la galería.)
+        Intent i = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        i.setType("image/*");
+        startActivityForResult(i, RC_SELECCIONAR_FOTO);
+    }
+
+    // Obtiene el path real de una imagen a partir de la URI de Galería obtenido con ACTION_PICK.
+    private String getRealPath(Uri uriGaleria) {
+        // Se consulta en el content provider de la galería el path real del archivo de la foto.
+        String[] filePath = {MediaStore.Images.Media.DATA};
+        Cursor c = getContentResolver().query(uriGaleria, filePath, null, null, null);
+        c.moveToFirst();
+        int columnIndex = c.getColumnIndex(filePath[0]);
+        String path = c.getString(columnIndex);
+        c.close();
+        return path;
+    }
+
+    // Escala y muestra la imagen en el visor.
+    private void cargarImagenEscalada(String pathFoto) {
+        // Se utiliza una tarea asíncrona, para escalar, guardar en archivo propio y mostrar
+        // la foto en el ImageView.
+        MostrarFotoAsyncTask tarea = new MostrarFotoAsyncTask();
+        tarea.execute(pathFoto);
+    }
+    // Crea un archivo de foto con el nombre indicado en almacenamiento externo si es posible, o si
+    // no en almacenamiento interno, y lo retorna. Retorna null si fallo.
+    // Si publico es true -> en la carpeta pública de imágenes.
+    // Si publico es false, en la carpeta propia de imágenes.
+    private File crearArchivoFoto(String nombre, boolean publico) {
+        // Se obtiene el directorio en el que almacenarlo.
+        File directorio;
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            if (publico) {
+                // En el directorio público para imágenes del almacenamiento externo.
+                directorio = Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            } else {
+                directorio = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            }
+        } else {
+            // En almacenamiento interno.
+            directorio = getFilesDir();
+        }
+        // Su no existe el directorio, se crea.
+        if (directorio != null && !directorio.exists()) {
+            if (!directorio.mkdirs()) {
+                Log.d(getString(R.string.app_name), "error al crear el directorio");
+                return null;
+            }
+        }
+        // Se crea un archivo con ese nombre y la extensión jpg en ese
+        // directorio.
+        File archivo = null;
+        if (directorio != null) {
+            archivo = new File(directorio.getPath() + File.separator +
+                    nombre);
+            Log.d(getString(R.string.app_name), archivo.getAbsolutePath());
+        }
+        // Se retorna el archivo creado.
+        return archivo;
+    }
+
+    // Tarea asíncrona que obtiene una foto a partir de su path y la muestra en
+    // un visor.
+    private class MostrarFotoAsyncTask extends AsyncTask<String, Void, Bitmap> {
+
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            // Se escala la foto, cuyo path corresponde al primer parámetro,
+            // retornado el Bitmap correspondiente.
+            return escalarFoto(
+                    params[0],
+                    getResources().getDimensionPixelSize(R.dimen.tamAvatar),
+                    getResources().getDimensionPixelSize(
+                            R.dimen.tamAvatar));
+        }
+
+        // Una vez finalizado el hilo de trabajo. Se ejecuta en el hilo
+        // principal. Recibe el Bitmap de la foto escalada (o null si error).
+        @Override
+        protected void onPostExecute(Bitmap bitmapFoto) {
+            if (bitmapFoto != null) {
+                // Se guarda la copia propia de la imagen.
+                File archivo = crearArchivoFoto(sNombreArchivo, false);
+                if (archivo != null) {
+                    if (guardarBitmapEnArchivo(bitmapFoto, archivo)) {
+                        // Se almacena el path de la foto a mostrar en el ImageView.
+                        foto=archivo.getAbsolutePath();
+                        // Se muestra la foto en el ImageView.
+                        ivFoto.setImageBitmap(bitmapFoto);
+                    }
+                }
+            }
+        }
+
+
+        // Escala la foto indicada, para ser mostarda en un visor determinado.
+        // Retorna el bitmap correspondiente a la imagen escalada o null si
+        // se ha producido un error.
+        private Bitmap escalarFoto(String pathFoto, int anchoVisor,
+                                   int altoVisor) {
+            try {
+                // Se obtiene el tamaño de la imagen.
+                BitmapFactory.Options opciones = new BitmapFactory.Options();
+                opciones.inJustDecodeBounds = true; // Solo para cálculo.
+                BitmapFactory.decodeFile(pathFoto, opciones);
+                int anchoFoto = opciones.outWidth;
+                int altoFoto = opciones.outHeight;
+                // Se obtiene el factor de escalado para la imagen.
+                int factorEscalado = Math.min(anchoFoto / anchoVisor, altoFoto
+                        / altoVisor);
+                // Se escala la imagen con dicho factor de escalado.
+                opciones.inJustDecodeBounds = false; // Se escalará.
+                opciones.inSampleSize = factorEscalado;
+                return BitmapFactory.decodeFile(pathFoto, opciones);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        // Guarda el bitamp de la foto en un archivo. Retorna si ha ido bien.
+        private boolean guardarBitmapEnArchivo(Bitmap bitmapFoto, File archivo) {
+            try {
+                FileOutputStream flujoSalida = new FileOutputStream(
+                        archivo);
+                bitmapFoto.compress(Bitmap.CompressFormat.JPEG, 100, flujoSalida);
+                flujoSalida.flush();
+                flujoSalida.close();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
     }
 }

@@ -40,7 +40,7 @@ public class UnoFragment extends Fragment {
     //------------------ Interface --------------------
     public interface Callback {
         public void verDetalles(int contacto);
-
+        public void eliminarFragmento();
         public void solicitarContacto();
     }
 
@@ -204,6 +204,7 @@ public class UnoFragment extends Fragment {
                     for (Contacto elemento : elems) {
                         adaptador.remove(elemento);
                     }
+                    listener.eliminarFragmento();
                     Toast.makeText(getContext(),
                             getContext().getString(R.string.dell),
                             Toast.LENGTH_LONG).show();

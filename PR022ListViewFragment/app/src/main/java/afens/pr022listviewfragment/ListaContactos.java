@@ -20,7 +20,6 @@ public class ListaContactos {
                 c.setEdad(i);
                 c.setLocalidad("Local" + i);
                 c.setTelf("+34" + i);
-                c.setFoto("http://lorempixel.com/500/500/people/" + (i + 1) + "/");
                 contactos.add(c);
             }
         }

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements UnoFragment.Callb
 
 
     // ------------------ Asignacion de Fragmentos --------------------
-    private void eliminarFragmento() {
+    public void eliminarFragmento() {
         Fragment s = gestor.findFragmentByTag(SEGUNDARIO);
         if (s != null) {
             FragmentTransaction transaction = gestor.beginTransaction();
@@ -88,22 +88,20 @@ public class MainActivity extends AppCompatActivity implements UnoFragment.Callb
 // Cuando nos responde un Intent
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
+            UnoFragment frg = (UnoFragment) getSupportFragmentManager().findFragmentByTag(PRINCIPAL);
+            frg.actualizar();
             if (requestCode == RC_ADD && data.hasExtra(AddActivity.EXTRA_CONTACTO)) {
-                UnoFragment frg = (UnoFragment) getSupportFragmentManager().findFragmentByTag(PRINCIPAL);
                 if (getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     int c = data.getIntExtra(AddActivity.EXTRA_CONTACTO, -1);
                     if (c > -1) {
                         frg.setItemChecked(c);
                     }
                 }
-                frg.actualizar();
             }
             if (requestCode == RC_EDIT && data.hasExtra(AddActivity.EXTRA_CONTACTO)) {
                 if (getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    Fragment frg = getSupportFragmentManager().findFragmentByTag(PRINCIPAL);
-                    ((UnoFragment) frg).actualizar();
-                    frg = getSupportFragmentManager().findFragmentByTag(SEGUNDARIO);
-                    ((DosFragment) frg).mostrarDetalles();
+                    DosFragment frg2 = (DosFragment) getSupportFragmentManager().findFragmentByTag(SEGUNDARIO);
+                    frg2.mostrarDetalles();
                 } else {
                     int c = data.getIntExtra(AddActivity.EXTRA_CONTACTO, -1);
                     if (c > -1) {
@@ -115,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements UnoFragment.Callb
                 if (getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     int c = data.getIntExtra(SecundariaActivity.EXTRA_MODIFICADO, -1);
                     if (c > -1) {
-                        UnoFragment frg = (UnoFragment) getSupportFragmentManager().findFragmentByTag(PRINCIPAL);
                         frg.setItemChecked(c);
                         verDetalles(c);
                     }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -78,7 +79,10 @@ public class Adaptador extends ArrayAdapter<Contacto> {
         holder.lblEdad.setText(String.format(getContext().getString(R.string.a), contacto.getEdad()));
         if (getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             holder.lblLocalidad.setText(contacto.getLocalidad());
-        Picasso.with(getContext().getApplicationContext()).load(contacto.getFoto()).resize(50, 50).into(holder.imgAvatar);
+        if (contacto.getFoto()!=null)
+            Picasso.with(getContext().getApplicationContext()).load(new File(contacto.getFoto())).into(holder.imgAvatar);
+        else
+            holder.imgAvatar.setImageResource(R.drawable.ic_add);
 
     }
 }
