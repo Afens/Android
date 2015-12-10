@@ -17,7 +17,8 @@
             android:id="@+id/ivFoto"
             android:layout_width="@dimen/tamAvatar"
             android:layout_height="@dimen/tamAvatar"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_marginEnd="@dimen/img_margin"
             android:layout_marginLeft="@dimen/img_margin"
             android:layout_marginRight="@dimen/img_margin"
@@ -33,7 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tilEdad"
             android:layout_alignStart="@+id/tilEdad"
-            android:layout_below="@+id/ivFoto">
+            android:layout_toLeftOf="@+id/ivFoto"
+            android:layout_toStartOf="@+id/ivFoto">
 
             <EditText
                 android:id="@+id/txtNombre"
@@ -62,13 +64,16 @@
             android:layout_below="@+id/tilNombre"
             android:layout_marginLeft="@dimen/text_marginLeft"
             android:layout_marginStart="@dimen/text_marginLeft"
-            android:layout_marginTop="@dimen/text_marginTop">
+            android:layout_marginTop="@dimen/text_marginTop"
+            android:layout_toLeftOf="@+id/ivFoto"
+            android:layout_toStartOf="@+id/ivFoto">
 
             <EditText
                 android:id="@+id/txtEdad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/age"
+                android:maxLength="13"
                 android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
 
@@ -82,7 +87,9 @@
             android:layout_below="@+id/tilEdad"
             android:layout_marginLeft="@dimen/text_marginLeft"
             android:layout_marginStart="@dimen/text_marginLeft"
-            android:layout_marginTop="@dimen/text_marginTop">
+            android:layout_marginTop="@dimen/text_marginTop"
+            android:layout_toLeftOf="@+id/ivFoto"
+            android:layout_toStartOf="@+id/ivFoto">
 
             <EditText
                 android:id="@+id/txtTelf"
@@ -111,7 +118,9 @@
             android:layout_below="@+id/tilTelf"
             android:layout_marginLeft="@dimen/text_marginLeft"
             android:layout_marginStart="@dimen/text_marginLeft"
-            android:layout_marginTop="@dimen/text_marginTop">
+            android:layout_marginTop="@dimen/text_marginTop"
+            android:layout_toLeftOf="@+id/ivFoto"
+            android:layout_toStartOf="@+id/ivFoto">
 
             <EditText
                 android:id="@+id/txtCorreo"
@@ -141,7 +150,9 @@
             android:layout_below="@+id/tilCorreo"
             android:layout_marginLeft="@dimen/text_marginLeft"
             android:layout_marginStart="@dimen/text_marginLeft"
-            android:layout_marginTop="@dimen/text_marginTop">
+            android:layout_marginTop="@dimen/text_marginTop"
+            android:layout_toLeftOf="@+id/ivFoto"
+            android:layout_toStartOf="@+id/ivFoto">
 
             <EditText
                 android:id="@+id/txtLocalidad"

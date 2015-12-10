@@ -38,9 +38,12 @@ import butterknife.ButterKnife;
 
 public class AddActivity extends AppCompatActivity {
 
-    private static final int RC_SELECCIONAR_FOTO = 7;
-    private Contacto contacto;
-    public static final String EXTRA_CONTACTO = "Nuevo_contacto";
+    @Bind(R.id.icoNombre)
+    ImageView icoNombre;
+    @Bind(R.id.icoCorreo)
+    ImageView icoCorreo;
+    @Bind(R.id.icoLocalidad)
+    ImageView icoLocalidad;
     @Bind(R.id.txtNombre)
     EditText txtNombre;
     @Bind(R.id.tilNombre)
@@ -63,8 +66,13 @@ public class AddActivity extends AppCompatActivity {
     EditText txtLocalidad;
     @Bind(R.id.tilLocalidad)
     TextInputLayout tilLocalidad;
+    @Bind(R.id.icoTelf)
+    ImageView icoTelf;
     private String sNombreArchivo;
     private String foto;
+    private Contacto contacto;
+    public static final String EXTRA_CONTACTO = "Nuevo_contacto";
+    private static final int RC_SELECCIONAR_FOTO = 7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,21 +82,25 @@ public class AddActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int i = intent.getIntExtra(EXTRA_CONTACTO, -1);
-        if (i < 0)
+        if (i < 0) {
+            setTitle("Crear Nuevo Contacto");
             contacto = new Contacto();
-        else
+        } else {
+            setTitle("Editar Contacto");
             contacto = ListaContactos.get(i);
+        }
         ivFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                seleccionarFoto(contacto.hashCode()+ new SimpleDateFormat("yyyyMMdd_HHmmss",
+                seleccionarFoto(contacto.hashCode() + new SimpleDateFormat("yyyyMMdd_HHmmss",
                         Locale.getDefault()).format(new Date()) + ".jpg");
             }
         });
         setupValidacionTelefono();
         setupValidacionEmail();
-
-        contactoToView();
+        setupFocus();
+        if (!(i < 0))
+            contactoToView();
     }
 
     private void contactoToView() {
@@ -97,7 +109,7 @@ public class AddActivity extends AppCompatActivity {
         txtTelf.setText(contacto.getTelf());
         txtCorreo.setText(contacto.getCorreo());
         txtLocalidad.setText(contacto.getLocalidad());
-        if (contacto.getFoto()!=null) {
+        if (contacto.getFoto() != null) {
             foto = contacto.getFoto();
             Picasso.with(this).load(new File(contacto.getFoto())).into(ivFoto);
         }
@@ -105,7 +117,8 @@ public class AddActivity extends AppCompatActivity {
 
     private void guardarContacto() {
         contacto.setNombre(txtNombre.getText().toString());
-        contacto.setEdad(Integer.parseInt(txtEdad.getText().toString()));
+        if (!TextUtils.isEmpty(txtEdad.getText().toString()))
+            contacto.setEdad(Integer.parseInt(txtEdad.getText().toString()));
         contacto.setTelf(txtTelf.getText().toString());
         contacto.setCorreo(txtCorreo.getText().toString());
         contacto.setLocalidad(txtLocalidad.getText().toString());
@@ -113,6 +126,55 @@ public class AddActivity extends AppCompatActivity {
         if (ListaContactos.indexOf(contacto) == -1) {
             ListaContactos.add(contacto);
         }
+    }
+
+    private void setupFocus() {
+        final int COLOR = getResources().getColor(R.color.primary_dark);
+        txtNombre.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    icoNombre.setColorFilter(COLOR);
+                else
+                    icoNombre.clearColorFilter();
+            }
+        });
+        txtEdad.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    icoNombre.setColorFilter(COLOR);
+                else
+                    icoNombre.clearColorFilter();
+            }
+        });
+        txtTelf.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    icoTelf.setColorFilter(COLOR);
+                else
+                    icoTelf.clearColorFilter();
+            }
+        });
+        txtLocalidad.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    icoLocalidad.setColorFilter(COLOR);
+                else
+                    icoLocalidad.clearColorFilter();
+            }
+        });
+        txtCorreo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    icoCorreo.setColorFilter(COLOR);
+                else
+                    icoCorreo.clearColorFilter();
+            }
+        });
     }
 
     // ------------------------- Menu ---------------------------
@@ -250,7 +312,7 @@ public class AddActivity extends AppCompatActivity {
         // Se seleccionará un imagen de la galería.
         // (el segundo parámetro es el Data, que corresponde a la Uri de la galería.)
         Intent i = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         i.setType("image/*");
         startActivityForResult(i, RC_SELECCIONAR_FOTO);
     }
@@ -274,6 +336,7 @@ public class AddActivity extends AppCompatActivity {
         MostrarFotoAsyncTask tarea = new MostrarFotoAsyncTask();
         tarea.execute(pathFoto);
     }
+
     // Crea un archivo de foto con el nombre indicado en almacenamiento externo si es posible, o si
     // no en almacenamiento interno, y lo retorna. Retorna null si fallo.
     // Si publico es true -> en la carpeta pública de imágenes.
@@ -337,7 +400,7 @@ public class AddActivity extends AppCompatActivity {
                 if (archivo != null) {
                     if (guardarBitmapEnArchivo(bitmapFoto, archivo)) {
                         // Se almacena el path de la foto a mostrar en el ImageView.
-                        foto=archivo.getAbsolutePath();
+                        foto = archivo.getAbsolutePath();
                         // Se muestra la foto en el ImageView.
                         ivFoto.setImageBitmap(bitmapFoto);
                     }

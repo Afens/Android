@@ -14,6 +14,9 @@
     <dimen name="ico_dimens">24dp</dimen>
     <dimen name="ico_margin_B">10dp</dimen>
 
+    <!-- Propiedades de los Card-->
+    <dimen name="card">4dp</dimen>
+
     <!-- Propiedade de los item -->
     <dimen name="item_text_margin">72dp</dimen>
     <dimen name="item_margin">16dp</dimen>
@@ -22,4 +25,5 @@
     <!-- nuevas -->
     <dimen name="dimenHueco">250dp</dimen>
     <dimen name="miniAvatar">50dp</dimen>
+    <dimen name="dp0">0dp</dimen>
 </resources>

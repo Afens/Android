@@ -1,46 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/item_background"
-    android:paddingBottom="@dimen/item_margin"
-    android:paddingTop="@dimen/item_margin">
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="@dimen/card"
+    card_view:cardElevation="@dimen/card"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true">
 
-    <TextView
-        android:id="@+id/lblNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginEnd="@dimen/item_margin"
-        android:layout_marginLeft="@dimen/item_text_margin"
-        android:layout_marginRight="@dimen/item_margin"
-        android:layout_marginStart="@dimen/item_text_margin"
-        android:text="@string/firma"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <RelativeLayout
+        android:background="@drawable/item_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/item_margin"
+        android:paddingTop="@dimen/item_margin">
 
-    <TextView
-        android:id="@+id/lblEdad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lblNombre"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="@dimen/item_text_margin"
-        android:layout_marginStart="@dimen/item_text_margin"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/lblNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="@dimen/item_margin"
+            android:layout_marginLeft="@dimen/item_text_margin"
+            android:layout_marginRight="@dimen/item_margin"
+            android:layout_marginStart="@dimen/item_text_margin"
+            android:text="@string/firma"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/lblLocalidad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lblNombre"
-        android:layout_marginLeft="@dimen/center"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/lblEdad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lblNombre"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/item_text_margin"
+            android:layout_marginStart="@dimen/item_text_margin"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgAvatar"
-        android:layout_width="@dimen/miniAvatar"
-        android:layout_height="@dimen/miniAvatar"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/item_margin"
-        android:layout_marginStart="@dimen/item_margin" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/lblLocalidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lblNombre"
+            android:layout_marginLeft="@dimen/center"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="@dimen/miniAvatar"
+            android:layout_height="@dimen/miniAvatar"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/item_margin"
+            android:layout_marginStart="@dimen/item_margin"
+            />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -6,7 +6,9 @@
     <ListView
         android:id="@+id/lstContactos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/dp0"/>
 
     <TextView
         android:id="@+id/lblNoHayContactos"
@@ -14,7 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/empty"
-        android:drawableTop="@drawable/ic_add"
-
+        android:drawableTop="@drawable/ic_action_add_person"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 </FrameLayout>

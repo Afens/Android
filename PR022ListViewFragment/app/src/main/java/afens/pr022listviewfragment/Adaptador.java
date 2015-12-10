@@ -77,12 +77,12 @@ public class Adaptador extends ArrayAdapter<Contacto> {
         Contacto contacto = datos.get(position);
         holder.lblNombre.setText(contacto.getNombre());
         holder.lblEdad.setText(String.format(getContext().getString(R.string.a), contacto.getEdad()));
-        if (getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        if (!(getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE))
             holder.lblLocalidad.setText(contacto.getLocalidad());
         if (contacto.getFoto()!=null)
             Picasso.with(getContext().getApplicationContext()).load(new File(contacto.getFoto())).into(holder.imgAvatar);
         else
-            holder.imgAvatar.setImageResource(R.drawable.ic_add);
+            holder.imgAvatar.setImageResource(R.drawable.ic_action_person);
 
     }
 }

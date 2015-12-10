@@ -1,104 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/lblNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="@dimen/text_marginLeft"
-        android:layout_marginStart="@dimen/text_marginLeft"
-        android:layout_marginTop="@dimen/text_marginTop"
-        android:scaleType="centerCrop"
-        android:layout_toLeftOf="@+id/ivFoto"
-        android:text="Manuel Espinosa de los Monteros Delgado"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <ImageView
+            android:id="@+id/ivFoto"
+            android:layout_width="@dimen/tamAvatar"
+            android:layout_height="@dimen/tamAvatar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="@dimen/img_margin"
+            android:layout_marginLeft="@dimen/img_margin"
+            android:layout_marginRight="@dimen/img_margin"
+            android:layout_marginStart="@dimen/img_margin"
+            android:layout_marginTop="@dimen/img_margin"
+            android:src="@drawable/ic_action_picture" />
 
-    <TextView
-        android:id="@+id/lblEdad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/lblNombre"
-        android:layout_marginLeft="@dimen/text_marginLeft"
-        android:layout_marginStart="@dimen/text_marginLeft"
-        android:layout_marginTop="@dimen/text_marginTop"
-        android:layout_toLeftOf="@+id/ivFoto"
-        android:text="22 años"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/lblNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/ivFoto"
+            android:layout_marginLeft="@dimen/text_marginLeft"
+            android:layout_marginStart="@dimen/text_marginLeft"
+            android:layout_marginTop="@dimen/text_marginTop"
+            android:scaleType="centerCrop"
+            android:text="Manuel Espinosa de los Monteros Delgado"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ImageView
-        android:id="@+id/ivFoto"
-        android:layout_width="@dimen/tamAvatar"
-        android:layout_height="@dimen/tamAvatar"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/img_margin"
-        android:layout_marginEnd="@dimen/img_margin"
-        android:layout_marginLeft="@dimen/img_margin"
-        android:layout_marginStart="@dimen/img_margin"
-        android:layout_marginTop="@dimen/img_margin"
-        android:src="@drawable/ic_tlf"/>
+        <ImageView
+            android:layout_width="@dimen/ico_dimens"
+            android:layout_height="@dimen/ico_dimens"
+            android:layout_alignTop="@+id/lblNombre"
+            android:layout_marginLeft="@dimen/ico_margin"
+            android:src="@drawable/ic_action_person" />
 
-    <TextView
-        android:id="@+id/lblTelf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/ivFoto"
-        android:layout_marginLeft="@dimen/text_marginLeft"
-        android:layout_marginStart="@dimen/text_marginLeft"
-        android:layout_marginTop="@dimen/text_marginTop"
-        android:text="664080752"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    <ImageView
-        android:layout_width="@dimen/ico_dimens"
-        android:layout_height="@dimen/ico_dimens"
-        android:src="@drawable/ic_tlf"
-        android:layout_alignTop="@+id/lblTelf"
-        android:layout_marginLeft="@dimen/ico_margin"/>
+        <TextView
+            android:id="@+id/lblEdad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/lblNombre"
+            android:layout_marginLeft="@dimen/text_marginLeft"
+            android:layout_marginStart="@dimen/text_marginLeft"
+            android:layout_marginTop="@dimen/text_marginTop"
+            android:text="22 años"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/lblCorreo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/lblTelf"
-        android:layout_marginLeft="@dimen/text_marginLeft"
-        android:layout_marginStart="@dimen/text_marginLeft"
-        android:layout_marginTop="@dimen/text_marginTop"
-        android:text="sheith.92@gmail.com"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    <ImageView
-        android:layout_width="@dimen/ico_dimens"
-        android:layout_height="@dimen/ico_dimens"
-        android:src="@drawable/ic_correo"
-        android:layout_alignTop="@+id/lblCorreo"
-        android:layout_marginLeft="@dimen/ico_margin"/>
 
-    <TextView
-        android:id="@+id/lblLocalidad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/lblCorreo"
-        android:layout_marginLeft="@dimen/text_marginLeft"
-        android:layout_marginStart="@dimen/text_marginLeft"
-        android:layout_marginTop="@dimen/text_marginTop"
-        android:text="Algeciras"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    <ImageView
-        android:layout_width="@dimen/ico_dimens"
-        android:layout_height="@dimen/ico_dimens"
-        android:src="@drawable/ic_localidad"
-        android:layout_alignTop="@+id/lblLocalidad"
-        android:layout_marginLeft="@dimen/ico_margin"/>
-</RelativeLayout>
+        <TextView
+            android:id="@+id/lblTelf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/lblEdad"
+            android:layout_marginLeft="@dimen/text_marginLeft"
+            android:layout_marginStart="@dimen/text_marginLeft"
+            android:layout_marginTop="@dimen/text_marginTop"
+            android:text="664080752"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:layout_width="@dimen/ico_dimens"
+            android:layout_height="@dimen/ico_dimens"
+            android:layout_alignTop="@+id/lblTelf"
+            android:layout_marginLeft="@dimen/ico_margin"
+            android:src="@drawable/ic_action_telf" />
+
+        <TextView
+            android:id="@+id/lblCorreo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/lblTelf"
+            android:layout_marginLeft="@dimen/text_marginLeft"
+            android:layout_marginStart="@dimen/text_marginLeft"
+            android:layout_marginTop="@dimen/text_marginTop"
+            android:text="sheith.92@gmail.com"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:layout_width="@dimen/ico_dimens"
+            android:layout_height="@dimen/ico_dimens"
+            android:layout_alignTop="@+id/lblCorreo"
+            android:layout_marginLeft="@dimen/ico_margin"
+            android:src="@drawable/ic_action_email" />
+
+        <TextView
+            android:id="@+id/lblLocalidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/lblCorreo"
+            android:layout_marginLeft="@dimen/text_marginLeft"
+            android:layout_marginStart="@dimen/text_marginLeft"
+            android:layout_marginTop="@dimen/text_marginTop"
+            android:text="Algeciras"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:layout_width="@dimen/ico_dimens"
+            android:layout_height="@dimen/ico_dimens"
+            android:layout_alignTop="@+id/lblLocalidad"
+            android:layout_marginLeft="@dimen/ico_margin"
+            android:src="@drawable/ic_action_place" />
+    </RelativeLayout>
+</ScrollView>
