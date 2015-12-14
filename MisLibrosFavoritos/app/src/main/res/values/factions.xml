@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <fraction name="frg_sinopsis">40%</fraction>
+    <fraction name="portada">30%</fraction>
+    <fraction name="ancho">70%</fraction>
+</resources>

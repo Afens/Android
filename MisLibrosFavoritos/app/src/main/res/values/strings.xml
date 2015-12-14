@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Mis Libros Favoritos</string>
+    <string name="agregar_activity_name">Agregar Libro</string>
+    <string name="img_default">http://place-hold.it/300x150.png</string>
+    <string name="lst_empty">No hay ningun Libro Guardado</string>
+    <string name="dell">" eliminados"</string>
+    <string name="add">Añadir</string>
+    <string name="titulo">Titulo</string>
+    <string name="autor">Autor/a</string>
+    <string name="year">Año de Publicacion</string>
+    <string name="url">URL Portada</string>
+    <string name="sinopsis">Sinopsis</string>
+    <string name="no_disponible">Sinopsis No Disponible</string>
+</resources>
