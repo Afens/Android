@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">PR033Preferencias</string>
+    <string-array name="tipo_conexion_entries">
+        <item>Por Wifi</item>
+        <item>Por Datos</item>
+    </string-array>
+    <string-array name="tipo_conexion_values">
+        <item>W</item>
+        <item>D</item>
+    </string-array>
+    <string name="tipo_conexion_default">
+        W
+    </string>
+</resources>
