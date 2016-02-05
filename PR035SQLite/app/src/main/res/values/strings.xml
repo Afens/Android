@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PR033Volley</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="itemSearch">Search</string>
+    <string name="contentFoto">foto</string>
+    <string name="btnLlamar">Llamar</string>
+    <string name="btnBorrar">Borrar</string>
+</resources>

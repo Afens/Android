@@ -6,6 +6,11 @@
             android:key="prefSincronizar"
             android:summary="Sincronizar Detalles"
             android:title="Sincronizar" />
+        <EditTextPreference
+            android:key="prefTitle"
+            android:title="Titulo1"
+            android:summary="Titulo2"
+            android:dialogTitle="Titulo3" />
         <ListPreference
             android:defaultValue="@string/tipo_conexion_default"
             android:dependency="prefSincronizar"
