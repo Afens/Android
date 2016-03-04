@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nsvScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgFoto"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_person" />
+
+        <ImageView
+            android:id="@+id/imgNombre"
+            android:layout_width="@dimen/iconMaterial"
+            android:layout_height="@dimen/iconMaterial"
+            android:layout_below="@id/imgFoto"
+            android:layout_marginLeft="@dimen/marginLeftMaterialList"
+            android:layout_marginStart="@dimen/marginLeftMaterialList"
+            android:layout_marginTop="@dimen/paddingTopMaterialList"
+            android:src="@drawable/ic_person" />
+
+        <EditText
+            android:id="@+id/txtNombre"
+            android:layout_width="@dimen/widthTxtCreador"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imgNombre"
+            android:layout_marginLeft="@dimen/marginLeftItemAlumno"
+            android:layout_marginStart="@dimen/marginLeftItemAlumno"
+            android:inputType="text"
+            android:textSize="@dimen/textSize" />
+
+        <ImageView
+            android:id="@+id/imgTelefono"
+            android:layout_width="@dimen/iconMaterial"
+            android:layout_height="@dimen/iconMaterial"
+            android:layout_below="@id/imgNombre"
+            android:layout_marginLeft="@dimen/marginLeftMaterialList"
+            android:layout_marginStart="@dimen/marginLeftMaterialList"
+            android:layout_marginTop="@dimen/iconCreadorSeparacion"
+            android:src="@drawable/ic_phone" />
+
+        <EditText
+            android:id="@+id/txtTelefono"
+            android:layout_width="@dimen/widthTxtCreador"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imgTelefono"
+            android:layout_marginLeft="@dimen/marginLeftItemAlumno"
+            android:layout_marginStart="@dimen/marginLeftItemAlumno"
+            android:inputType="phone"
+            android:textSize="@dimen/textSize" />
+
+        <ImageView
+            android:id="@+id/imgEmail"
+            android:layout_width="@dimen/iconMaterial"
+            android:layout_height="@dimen/iconMaterial"
+            android:layout_below="@id/imgTelefono"
+            android:layout_marginLeft="@dimen/marginLeftMaterialList"
+            android:layout_marginStart="@dimen/marginLeftMaterialList"
+            android:layout_marginTop="@dimen/iconCreadorSeparacion"
+            android:src="@drawable/ic_email" />
+
+        <EditText
+            android:id="@+id/txtEmail"
+            android:layout_width="@dimen/widthTxtCreador"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imgEmail"
+            android:layout_marginLeft="@dimen/marginLeftItemAlumno"
+            android:layout_marginStart="@dimen/marginLeftItemAlumno"
+            android:inputType="textEmailAddress"
+            android:textSize="@dimen/textSize" />
+
+        <ImageView
+            android:id="@+id/imgEmpresa"
+            android:layout_width="@dimen/iconMaterial"
+            android:layout_height="@dimen/iconMaterial"
+            android:layout_below="@id/imgEmail"
+            android:layout_marginLeft="@dimen/marginLeftMaterialList"
+            android:layout_marginStart="@dimen/marginLeftMaterialList"
+            android:layout_marginTop="@dimen/iconCreadorSeparacion"
+            android:src="@drawable/ic_business" />
+
+        <EditText
+            android:id="@+id/txtEmpresa"
+            android:layout_width="@dimen/widthTxtCreador"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imgEmpresa"
+            android:layout_marginLeft="@dimen/marginLeftItemAlumno"
+            android:layout_marginStart="@dimen/marginLeftItemAlumno"
+            android:inputType="text"
+            android:textSize="@dimen/textSize" />
+
+        <ImageView
+            android:id="@+id/imgTutor"
+            android:layout_width="@dimen/iconMaterial"
+            android:layout_height="@dimen/iconMaterial"
+            android:layout_below="@id/imgEmpresa"
+            android:layout_marginLeft="@dimen/marginLeftMaterialList"
+            android:layout_marginStart="@dimen/marginLeftMaterialList"
+            android:layout_marginTop="@dimen/iconCreadorSeparacion"
+            android:src="@drawable/ic_school" />
+
+        <EditText
+            android:id="@+id/txtTutor"
+            android:layout_width="@dimen/widthTxtCreador"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imgTutor"
+            android:layout_marginLeft="@dimen/marginLeftItemAlumno"
+            android:layout_marginStart="@dimen/marginLeftItemAlumno"
+            android:inputType="text"
+            android:textSize="@dimen/textSize" />
+
+        <ImageView
+            android:id="@+id/imgHorario"
+            android:layout_width="@dimen/iconMaterial"
+            android:layout_height="@dimen/iconMaterial"
+            android:layout_below="@id/imgTutor"
+            android:layout_marginLeft="@dimen/marginLeftMaterialList"
+            android:layout_marginStart="@dimen/marginLeftMaterialList"
+            android:layout_marginTop="@dimen/iconCreadorSeparacion"
+            android:src="@drawable/ic_access_time" />
+
+        <EditText
+            android:id="@+id/txtHorario"
+            android:layout_width="@dimen/widthTxtCreador"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imgHorario"
+            android:layout_marginLeft="@dimen/marginLeftItemAlumno"
+            android:layout_marginStart="@dimen/marginLeftItemAlumno"
+            android:inputType="text"
+            android:textSize="@dimen/textSize" />
+
+        <ImageView
+            android:id="@+id/imgDireccion"
+            android:layout_width="@dimen/iconMaterial"
+            android:layout_height="@dimen/iconMaterial"
+            android:layout_below="@id/imgHorario"
+            android:layout_marginLeft="@dimen/marginLeftMaterialList"
+            android:layout_marginStart="@dimen/marginLeftMaterialList"
+            android:layout_marginTop="@dimen/iconCreadorSeparacion"
+            android:src="@drawable/ic_place" />
+
+        <EditText
+            android:id="@+id/txtDireccion"
+            android:layout_width="@dimen/widthTxtCreador"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imgDireccion"
+            android:layout_marginLeft="@dimen/marginLeftItemAlumno"
+            android:layout_marginStart="@dimen/marginLeftItemAlumno"
+            android:inputType="text"
+            android:textSize="@dimen/textSize" />
+    </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>
