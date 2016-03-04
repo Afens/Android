@@ -1,5 +1,6 @@
 package afens.pr2t.adaptadores;
 
+
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import afens.pr2t.R;
 import afens.pr2t.SQLite.DAO;
@@ -43,8 +45,11 @@ public class ProximasAdapter extends GenericAdapter {
         visitaView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOnVisitaClickListener != null)
-                    mOnVisitaClickListener.onVisitaClick(v, mDatos.get(viewHolder.getAdapterPosition()), viewHolder.getAdapterPosition());
+                if (listener != null) {
+                    Visita visita = mDatos.get(viewHolder.getAdapterPosition());
+                    visita.setId(0);
+                    listener.onVisitaClick(v, visita, viewHolder.getAdapterPosition());
+                }
             }
         });
         return viewHolder;
@@ -59,22 +64,28 @@ public class ProximasAdapter extends GenericAdapter {
 
         private final TextView lblNombre;
         private final TextView lblDia;
-        private final TextView lblHora;
         private final ImageView imgAvatar;
 
         public ProximasViewHolder(View itemView) {
             super(itemView);
             lblDia = (TextView) itemView.findViewById(R.id.lblDia);
-            lblHora = (TextView) itemView.findViewById(R.id.lblHora);
             lblNombre = (TextView) itemView.findViewById(R.id.lblNombre);
             imgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
         }
 
         public void onBind(Visita visita) {
             SimpleDateFormat formatHora = new SimpleDateFormat("HH:mm", Locale.getDefault());
-            Date inicio = visita.getInicio();
-            lblDia.setText(new SimpleDateFormat("dd/MM/yy", Locale.getDefault()).format(visita.getInicio()));
-            lblHora.setText(formatHora.format(inicio) + "-" + formatHora.format(visita.getFin()));
+            Date previsto = new Date(visita.getInicio().getTime() + TimeUnit.DAYS.toMillis(15));
+            //Si existe esta visita
+            if (visita.getId() != 0) {
+                //Aparecerá como fecha
+                lblDia.setText(new SimpleDateFormat("dd/MM/yy", Locale.getDefault()).format(previsto));
+                //Si el alumno no ha realizado ninguna visita, le aparecerá un mensaje al usuario informandole de que debe ir cuanto antes.
+            } else
+                lblDia.setText(R.string.cuantoAntes);
+
+            visita.setInicio(new Date());
+
             //Se obtiene el alumno dueño de la visita.
             Alumno alumno = DAO.getInstance(itemView.getContext()).getAlumno(visita.getIdAlumno());
             lblNombre.setText(alumno.getNombre());

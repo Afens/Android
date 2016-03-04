@@ -213,15 +213,16 @@ public class DAO {
     }
 
     public Cursor queryAllProxVisitas(SQLiteDatabase bd) {
-        String condicion = new Date().getTime() + "<" + BDD.Visita.FIN;
         String orderBy = BDD.Visita.INICIO;
 
         //Si la preferencia de ordenar descendentemente, se especificará en el orderBy su orden descendente.
         if (preferences.getString(App.PREF_ORDEN_VISITA, App.ORDEN_INICIO).equals(App.ORDEN_FIN))
             orderBy = BDD.Visita.FIN;
 
-        //Devuelve las visitas posteriores al momento de ejecución de esta sentencia.
-        return bd.query(BDD.Visita.TABLA, BDD.Visita.TODOS, condicion, null, null, null, orderBy);
+        //Devuelve el id de cada alumno y los datos de su ultima visita, si no tiene devuelve null
+        return bd.rawQuery(String.format("SELECT a.%s, v.* FROM %s a LEFT OUTER JOIN %s v ON a.%s=%s AND v.%s = (SELECT %s FROM %s WHERE a.%s=%s ORDER BY %s DESC , 1 DESC LIMIT 1) ORDER BY %s"
+                , BDD.Alumno._ID, BDD.Alumno.TABLA, BDD.Visita.TABLA, BDD.Alumno._ID, BDD.Visita.ID_ALUMNO, BDD.Visita._ID, BDD.Visita._ID
+                , BDD.Visita.TABLA, BDD.Alumno._ID, BDD.Visita.ID_ALUMNO, BDD.Visita.INICIO, orderBy), null);
     }
 
     public List<Visita> getAllProxVisitas() {
@@ -262,7 +263,10 @@ public class DAO {
     public Visita cursorToVisita(Cursor cursorVisita) {
         Visita visita = new Visita();
         visita.setId(cursorVisita.getInt(cursorVisita.getColumnIndexOrThrow(BDD.Visita._ID)));
-        visita.setIdAlumno(cursorVisita.getInt(cursorVisita.getColumnIndexOrThrow(BDD.Visita.ID_ALUMNO)));
+        if (visita.getId() == 0)
+            visita.setIdAlumno(cursorVisita.getInt(0));
+        else
+            visita.setIdAlumno(cursorVisita.getInt(cursorVisita.getColumnIndexOrThrow(BDD.Visita.ID_ALUMNO)));
         visita.setInicio(new Date(cursorVisita.getLong(cursorVisita.getColumnIndexOrThrow(BDD.Visita.INICIO))));
         visita.setFin(new Date(cursorVisita.getLong(cursorVisita.getColumnIndexOrThrow(BDD.Visita.FIN))));
         visita.setComentario(cursorVisita.getString(cursorVisita.getColumnIndexOrThrow(BDD.Visita.COMENTARIO)));

@@ -155,6 +155,13 @@ public class MainActivity extends AppCompatActivity
         transaction.replace(R.id.frmHueco, frgActual).commit();
     }
 
+    @Override
+    public void addAlumno() {
+        FragmentTransaction transaction = mGestorFragmento.beginTransaction();
+        FragmentEditar fragment = new FragmentEditar();
+        transaction.replace(R.id.frmHueco, fragment).commit();
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -3,6 +3,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
+    <string name="MainActivity">FCT</string>
 
     <!-- Labels -->
     <string name="labelCreadorVisitaActivity">Nueva Visita</string>
@@ -68,8 +69,13 @@
 
 
     <!-- Acerca de -->
-    <string name="titleCreador">Creado Por:</string>
+    <string name="titleCreadoPor">Creado Por:</string>
     <string name="titleVersion">Version:</string>
     <string name="creador">Manuel Espinosa de los Monteros Delgado</string>
     <string name="version">1.0.5</string>
+
+<!--  -->
+    <string name="cuantoAntes">Cuanto antes</string>
+    <string name="sinVisitas">No hay visitas</string>
+    <string name="sinAlumnos">No Hay alumnos</string>
 </resources>

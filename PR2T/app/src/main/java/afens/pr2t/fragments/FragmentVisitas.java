@@ -12,6 +12,9 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -42,6 +45,8 @@ public class FragmentVisitas extends Fragment implements GenericAdapter.OnVisita
         Intent intent = new Intent(getContext(), CrearVisitaActivity.class);
         intent.putExtra(CrearVisitaActivity.INTENT_VISITA, visita);
         getActivity().startActivityForResult(intent, FragmentVisitas.RC_VISITAS);
+
+
     }
 
 
@@ -51,10 +56,6 @@ public class FragmentVisitas extends Fragment implements GenericAdapter.OnVisita
         FragmentVisitas fragment = new FragmentVisitas();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public static FragmentVisitas newInstance() {
-        return new FragmentVisitas();
     }
 
     @Nullable
@@ -77,7 +78,16 @@ public class FragmentVisitas extends Fragment implements GenericAdapter.OnVisita
         }
         cargarVisitas();
         configRecyclerView();
+        configEmptyView();
+    }
 
+    private void configEmptyView() {
+        RelativeLayout emptyView = (RelativeLayout) getActivity().findViewById(R.id.emptyView);
+        mAdaptador.setEmptyView(emptyView);
+        ImageView imgEmptyView = (ImageView) getActivity().findViewById(R.id.imgEmptyView);
+        TextView lblEmptyView = (TextView) getActivity().findViewById(R.id.lblEmptyView);
+        imgEmptyView.setImageResource(R.drawable.ic_sin_visitas);
+        lblEmptyView.setText(R.string.sinVisitas);
     }
 
 
@@ -90,30 +100,6 @@ public class FragmentVisitas extends Fragment implements GenericAdapter.OnVisita
         rvVisitas.setLayoutManager(mLayoutManager);
         rvVisitas.setItemAnimator(new DefaultItemAnimator());
 
-        if (mAdaptador instanceof ProximasAdapter) {
-            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
-                    new ItemTouchHelper.SimpleCallback(
-                            ItemTouchHelper.UP | ItemTouchHelper.DOWN,
-                            ItemTouchHelper.RIGHT) {
-
-                        // Cuando se detecta un gesto drag & drop.
-                        @Override
-                        public boolean onMove(RecyclerView recyclerView,
-                                              RecyclerView.ViewHolder viewHolder,
-                                              RecyclerView.ViewHolder target) {
-                            return true;
-                        }
-
-                        // Cuando se detecta un gesto swipe to dismiss.
-                        @Override
-                        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                            // Se elimina el elemento.
-                            mAdaptador.removeItem(viewHolder.getAdapterPosition());
-                        }
-                    });
-            // Se enlaza con el RecyclerView.
-            itemTouchHelper.attachToRecyclerView(rvVisitas);
-        }
     }
 
 

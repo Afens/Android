@@ -14,7 +14,7 @@ import afens.pr2t.modelos.Visita;
  */
 public abstract class GenericAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected List<Visita> mDatos;
-    protected OnVisitaClickListener mOnVisitaClickListener;
+    protected OnVisitaClickListener listener;
     private View emptyView;
 
     public interface OnVisitaClickListener{
@@ -54,7 +54,7 @@ public abstract class GenericAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
     // Establece el listener a informar cuando se hace click sobre un elemento de la lista.
     public void setOnItemClickListener(OnVisitaClickListener listener) {
-        this.mOnVisitaClickListener = listener;
+        this.listener = listener;
     }
 
     // Establece la empty view para la lista.

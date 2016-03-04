@@ -47,4 +47,6 @@
     <dimen name="collapsing_titleMarginStart">32dp</dimen>
     <dimen name="heightAppBar">200dp</dimen>
     <dimen name="dialog_img">100dp</dimen>
+    <dimen name="boundsImgEmptyView">50dp</dimen>
+    <dimen name="app_img">60dp</dimen>
 </resources>

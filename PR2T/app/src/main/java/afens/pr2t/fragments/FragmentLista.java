@@ -11,6 +11,9 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -35,6 +38,7 @@ public class FragmentLista extends Fragment implements AlumnosAdapter.OnItemClic
     public interface FragmentListaListener {
         // Cuando se selecciona un Alumno.
         void onAlumnoSelected(Alumno alumno);
+        void addAlumno();
     }
 
 
@@ -57,6 +61,7 @@ public class FragmentLista extends Fragment implements AlumnosAdapter.OnItemClic
             //Recuperará los alumnos de la antigua vez que cargó el fragmento.
             mAdaptador.replaceAll(savedInstanceState.<Alumno>getParcelableArrayList(STATE_ALUMNOS));
 
+        configEmptyView();
     }
 
     private void configRecyclerView() {
@@ -96,7 +101,20 @@ public class FragmentLista extends Fragment implements AlumnosAdapter.OnItemClic
         itemTouchHelper.attachToRecyclerView(rvAlumnos);
     }
 
-
+    private void configEmptyView() {
+        RelativeLayout emptyView = (RelativeLayout) getActivity().findViewById(R.id.emptyView);
+        mAdaptador.setEmptyView(emptyView);
+        ImageView imgEmptyView = (ImageView) getActivity().findViewById(R.id.imgEmptyView);
+        TextView lblEmptyView = (TextView) getActivity().findViewById(R.id.lblEmptyView);
+        imgEmptyView.setImageResource(R.drawable.ic_sin_alumnos);
+        lblEmptyView.setText(R.string.sinAlumnos);
+        emptyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.addAlumno();
+            }
+        });
+    }
     //Click en un item del RecyclerView.
     @Override
     public void onItemClick(View view, Alumno alumno, int position) {
